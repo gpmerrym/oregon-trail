@@ -69,20 +69,18 @@
         }
 
         
-        hunt(){
+        hunt(): number {
             let randomNumber = Math.random();
-            if(randomNumber > .5){
-                return this.food+100;
-            }else
-                return this.food;
-            
-            
+            if(randomNumber > 0.5){
+                this.food += 100;
+            } 
+            return this.food;
         }
 
-        eat(){
+        eat(): boolean{
             
             if(this.food >= 20){
-                this.food - 20;
+                this.food -= 20;
             }else
                 this.isHealthy = false;
 
@@ -107,24 +105,25 @@
 
         addPassenger(traveler: Traveler){
             
-            if(this.capacity < 5){
+            if(this.passengerArray.length < this.capacity){
                 this.passengerArray.push(traveler);
                 return "added"
-            } else
+                
+            } else{
                 return "sorry"
+            }
                       
-                       
-
         }
         
         isQuarantined(): boolean{
             
-            let quarantined = false;
+            let quarantined: boolean = false;
             
             this.passengerArray.forEach(element => {
-                
+                        
                 if(element.getIsHealthy() == false){
                     quarantined = true;
+                    
                 }
                                   
             });
@@ -133,18 +132,19 @@
 
         getFood(): number{
             //let traveler:Traveler;
-            let total = 0;
+            let total: number = 0;
 
             this.passengerArray.forEach(element => {
-                total = total + element.getTravelerFood();
+                total += element.getTravelerFood();
             });
 
             return total;
-            
-
         }
-
     }
+
+    // function rando(){
+    //     return Math.round(Math.random() * 100);
+    // }
 
     let traveler1 = new Traveler(25, "Dan", true);
     let traveler2 = new Traveler(15, "Dillon", true);
@@ -173,14 +173,14 @@
         let randomNumber = Math.random();
         if(randomNumber > .5){
             
-            wagon.passengerArray.push(element);
+            wagon.addPassenger(element);
         }
      
     });
 
     console.log(wagon);
-    console.log(wagon.isQuarantined());
-    console.log(wagon.getFood());
+    console.log(`Wagon quarantined? ${wagon.isQuarantined()}`);
+    console.log(`Wagon total food? ${wagon.getFood()}`);
 
     /*
     * Play the game

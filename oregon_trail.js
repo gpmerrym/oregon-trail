@@ -23,15 +23,14 @@
         };
         Traveler.prototype.hunt = function () {
             var randomNumber = Math.random();
-            if (randomNumber > .5) {
-                return this.food + 100;
+            if (randomNumber > 0.5) {
+                this.food += 100;
             }
-            else
-                return this.food;
+            return this.food;
         };
         Traveler.prototype.eat = function () {
             if (this.food >= 20) {
-                this.food - 20;
+                this.food -= 20;
             }
             else
                 this.isHealthy = false;
@@ -48,12 +47,13 @@
             this.passengerArray = passengerArray;
         }
         Wagon.prototype.addPassenger = function (traveler) {
-            if (this.capacity < 5) {
+            if (this.passengerArray.length < this.capacity) {
                 this.passengerArray.push(traveler);
                 return "added";
             }
-            else
+            else {
                 return "sorry";
+            }
         };
         Wagon.prototype.isQuarantined = function () {
             var quarantined = false;
@@ -68,12 +68,15 @@
             //let traveler:Traveler;
             var total = 0;
             this.passengerArray.forEach(function (element) {
-                total = total + element.getTravelerFood();
+                total += element.getTravelerFood();
             });
             return total;
         };
         return Wagon;
     }());
+    // function rando(){
+    //     return Math.round(Math.random() * 100);
+    // }
     var traveler1 = new Traveler(25, "Dan", true);
     var traveler2 = new Traveler(15, "Dillon", true);
     var traveler3 = new Traveler(35, "Becca", true);
@@ -91,12 +94,12 @@
     travelerArray.forEach(function (element) {
         var randomNumber = Math.random();
         if (randomNumber > .5) {
-            wagon.passengerArray.push(element);
+            wagon.addPassenger(element);
         }
     });
     console.log(wagon);
-    console.log(wagon.isQuarantined());
-    console.log(wagon.getFood());
+    console.log("Wagon quarantined? " + wagon.isQuarantined());
+    console.log("Wagon total food? " + wagon.getFood());
     /*
     * Play the game
     *
