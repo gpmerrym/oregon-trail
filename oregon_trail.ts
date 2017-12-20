@@ -172,7 +172,6 @@
     travelerArray.forEach(element => {
         let randomNumber = Math.random();
         if(randomNumber > .5){
-            
             wagon.addPassenger(element);
         }
      
